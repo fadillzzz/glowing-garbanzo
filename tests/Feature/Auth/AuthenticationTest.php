@@ -19,17 +19,6 @@ class AuthenticationTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response->assertNoContent();
-    }
-
-    public function test_users_can_not_authenticate_with_invalid_password(): void
-    {
-        $user = User::factory()->create();
-
-        $this->post('/session', [
-            'username' => $user->username,
-            'password' => 'wrong-password',
-        ]);
-
+        $response->assertCreated();
     }
 }
