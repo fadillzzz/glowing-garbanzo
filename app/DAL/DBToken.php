@@ -2,11 +2,11 @@
 
 namespace App\DAL;
 
-use App\Core\Interfaces\TokenInterface;
+use App\Core\Interfaces\TokenRepository;
 use App\Models\User;
 use Laravel\Sanctum\PersonalAccessToken;
 
-class DBToken implements TokenInterface
+class DBToken implements TokenRepository
 {
     public function getUser(string $token): User|null
     {
@@ -17,5 +17,10 @@ class DBToken implements TokenInterface
         }
 
         return null;
+    }
+
+    public function createToken(User $user): string
+    {
+        return $user->createToken($user->username)->plainTextToken;
     }
 }

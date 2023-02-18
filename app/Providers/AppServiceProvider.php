@@ -2,14 +2,17 @@
 
 namespace App\Providers;
 
-use App\Core\Interfaces\TokenInterface;
+use App\Core\Interfaces\TokenRepository;
+use App\Core\Interfaces\UserRepository;
 use App\DAL\DBToken;
+use App\DAL\DBUser;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
     public $bindings = [
-        TokenInterface::class => DBToken::class,
+        TokenRepository::class => DBToken::class,
+        UserRepository::class => DBUser::class,
     ];
 
     /**

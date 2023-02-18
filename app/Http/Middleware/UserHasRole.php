@@ -2,18 +2,18 @@
 
 namespace App\Http\Middleware;
 
-use App\Core\Interfaces\TokenInterface;
+use App\Core\Services\TokenService;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserHasRole
 {
-    private $tokenRepo;
+    private TokenService $tokenService;
 
-    public function __construct(TokenInterface $tokenRepo)
+    public function __construct(TokenService $tokenService)
     {
-        $this->tokenRepo = $tokenRepo;
+        $this->tokenService = $tokenService;
     }
 
     /**
@@ -31,7 +31,7 @@ class UserHasRole
             $token = $parts[1];
         }
 
-        $user = $this->tokenRepo->getUser($token);
+        $user = $this->tokenService->getUser($token);
 
         if ($user !== null && $user->role === $role) {
             return $next($request);

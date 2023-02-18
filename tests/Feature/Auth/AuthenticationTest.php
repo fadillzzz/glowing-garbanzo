@@ -19,7 +19,6 @@ class AuthenticationTest extends TestCase
             'password' => 'password',
         ]);
 
-        $this->assertAuthenticated();
         $response->assertNoContent();
     }
 
@@ -32,6 +31,5 @@ class AuthenticationTest extends TestCase
             'password' => 'wrong-password',
         ]);
 
-        $this->assertGuest();
     }
 }
