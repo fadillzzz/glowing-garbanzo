@@ -14,7 +14,7 @@ class TokenService
         $this->tokenRepo = $tokenRepo;
     }
 
-    public function getUser(string $token): User
+    public function getUser(string $token): User|null
     {
         return $this->tokenRepo->getUser($token);
     }

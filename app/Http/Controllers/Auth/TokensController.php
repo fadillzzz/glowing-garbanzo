@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class AuthenticatedSessionController extends Controller
+class TokensController extends Controller
 {
     private UserService $userService;
     private TokenService $tokenService;

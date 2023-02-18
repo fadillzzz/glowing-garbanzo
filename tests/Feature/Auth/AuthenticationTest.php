@@ -10,11 +10,11 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_users_can_authenticate_using_the_login_screen(): void
+    public function test_users_can_create_token(): void
     {
         $user = User::factory()->create();
 
-        $response = $this->post('/session', [
+        $response = $this->post('/tokens', [
             'username' => $user->username,
             'password' => 'password',
         ]);

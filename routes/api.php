@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\TokensController;
 use App\Http\Controllers\Users\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/session', [AuthenticatedSessionController::class, 'store']);
+Route::post('/tokens', [TokensController::class, 'store']);
 
 Route::middleware('role:admin')->group(function () {
     Route::get('/users', [UsersController::class, 'index']);
