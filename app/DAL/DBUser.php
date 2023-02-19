@@ -11,4 +11,9 @@ class DBUser implements UserRepository
     {
         return User::where('username', $username)->first();
     }
+
+    public function getAll(): array
+    {
+        return User::all()->toArray();
+    }
 }
