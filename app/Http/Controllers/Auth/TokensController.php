@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Core\Exceptions\Auth\AuthException;
 use App\Core\Services\Auth\TokenService;
 use App\Core\Services\User\UserService;
 use App\Http\Controllers\Controller;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class TokensController extends Controller
 {
@@ -32,7 +34,13 @@ class TokensController extends Controller
             'password' => 'required',
         ]);
 
-        $user = $this->userService->auth($request->username, $request->password);
+        try {
+            $user = $this->userService->auth($request->username, $request->password);
+        } catch (AuthException $e) {
+            throw ValidationException::withMessages([
+                'username' => ['The provided credentials are incorrect.'],
+            ])->status(401);
+        }
 
         $token = $this->tokenService->createToken($user);
 

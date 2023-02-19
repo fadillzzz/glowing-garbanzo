@@ -2,6 +2,7 @@
 
 namespace App\Core\Services\User;
 
+use App\Core\Exceptions\Auth\AuthException;
 use App\Core\Interfaces\User\UserRepository;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -21,9 +22,7 @@ class UserService
         $user = $this->userRepo->getByUsername($username);
 
         if (! $user || ! Hash::check($password, $user->password)) {
-            throw ValidationException::withMessages([
-                'username' => ['The provided credentials are incorrect.'],
-            ]);
+            throw new AuthException();
         }
 
         return $user;
