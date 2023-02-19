@@ -20,6 +20,6 @@ class UsersController extends Controller
      */
     public function index(Request $request): array
     {
-        return $this->userService->getAll();
+        return ['users' => $this->userService->getAll()];
     }
 }
