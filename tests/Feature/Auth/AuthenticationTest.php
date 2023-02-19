@@ -14,11 +14,24 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->post('/tokens', [
+        $response = $this->postJSON('/tokens', [
             'username' => $user->username,
             'password' => 'password',
         ]);
 
         $response->assertCreated();
+        $response->assertJsonStructure(['token']);
+    }
+
+    public function test_auth_wrong_credentials(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->postJSON('/tokens', [
+            'username' => $user->username,
+            'password' => 'asdfasd',
+        ]);
+
+        $response->assertUnauthorized();
     }
 }

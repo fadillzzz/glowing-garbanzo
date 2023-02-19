@@ -39,7 +39,7 @@ class TokensController extends Controller
         } catch (AuthException $e) {
             throw ValidationException::withMessages([
                 'username' => ['The provided credentials are incorrect.'],
-            ])->status(401);
+            ])->status(Response::HTTP_UNAUTHORIZED);
         }
 
         $token = $this->tokenService->createToken($user);
