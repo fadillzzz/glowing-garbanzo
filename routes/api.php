@@ -20,4 +20,5 @@ Route::post('/tokens', [TokensController::class, 'store']);
 
 Route::middleware('role:admin')->group(function () {
     Route::get('/users', [UsersController::class, 'index']);
+    Route::post('/users', [UsersController::class, 'store']);
 });

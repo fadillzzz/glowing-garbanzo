@@ -31,4 +31,27 @@ class UserTest extends TestCase
                 )
             );
     }
+
+    public function test_users_can_be_created(): void
+    {
+        $admin = User::factory()->create(['username' => 'admin']);
+        $token = $admin->createToken('testing')->plainTextToken;
+
+        $response = $this->postJSON('/users', [
+            'username' => 'new_user',
+            'password' => 'wawawawawa',
+            'role' => 'manager',
+        ], ['Authorization' => "Bearer ${token}"]);
+
+        $response->assertCreated();
+        $response
+            ->assertJson(fn (AssertableJson $json) =>
+                $json->has('user', fn (AssertableJson $json) =>
+                    $json->whereType('id', 'integer')
+                         ->whereType('username', 'string')
+                         ->missing('password')
+                         ->etc()
+                )
+            );
+    }
 }

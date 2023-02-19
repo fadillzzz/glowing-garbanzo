@@ -28,6 +28,13 @@ class UserService
         return $user;
     }
 
+    public function create($user): User
+    {
+        $user['password'] = Hash::make($user['password']);
+
+        return $this->userRepo->create($user);
+    }
+
     public function getAll(): array
     {
         return $this->userRepo->getAll();

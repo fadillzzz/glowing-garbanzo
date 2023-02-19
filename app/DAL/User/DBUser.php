@@ -16,4 +16,9 @@ class DBUser implements UserRepository
     {
         return User::all()->toArray();
     }
+
+    public function create(array $user): User
+    {
+        return User::create($user);
+    }
 }
