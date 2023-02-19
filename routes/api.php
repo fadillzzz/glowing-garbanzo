@@ -21,5 +21,6 @@ Route::post('/tokens', [TokensController::class, 'store']);
 Route::middleware('role:admin')->group(function () {
     Route::get('/users', [UsersController::class, 'index']);
     Route::post('/users', [UsersController::class, 'store']);
-    Route::put('/users/{id}', [UsersController::class, 'update']);
+    Route::patch('/users/{id}', [UsersController::class, 'update']);
+    Route::delete('/users/{id}', [UsersController::class, 'destroy']);
 });

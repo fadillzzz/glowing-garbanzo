@@ -15,4 +15,6 @@ interface UserRepository
     public function update(string $id, array $user): void;
 
     public function exists(string $id): bool;
+
+    public function delete(string $id): void;
 }

@@ -55,4 +55,15 @@ class UsersController extends Controller
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function destroy(Request $request, string $id): Response
+    {
+        if (! $this->userService->exists($id)) {
+            return response(null, Response::HTTP_NOT_FOUND);
+        }
+
+        $this->userService->delete($id);
+
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
 }

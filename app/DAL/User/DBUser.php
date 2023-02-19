@@ -27,6 +27,11 @@ class DBUser implements UserRepository
         User::where('id', $id)->update($user);
     }
 
+    public function delete(string $id): void
+    {
+        User::where('id', $id)->delete();
+    }
+
     public function exists(string $id): bool
     {
         return User::where('id', $id)->count() === 1;

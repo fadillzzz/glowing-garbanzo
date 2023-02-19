@@ -40,6 +40,11 @@ class UserService
         $this->userRepo->update($id, $user);
     }
 
+    public function delete(string $id): void
+    {
+        $this->userRepo->delete($id);
+    }
+
     public function getAll(): array
     {
         return $this->userRepo->getAll();

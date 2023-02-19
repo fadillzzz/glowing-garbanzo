@@ -59,7 +59,7 @@ class UserTest extends TestCase
         $user = User::factory()->create(['username' => 'user1']);
         $token = $this->createAdminToken();
 
-        $response = $this->putJSON("/users/{$user->id}", [
+        $response = $this->patchJSON("/users/{$user->id}", [
             'role' => 'manager'
         ], ['Authorization' => "Bearer {$token}"]);
 
@@ -67,5 +67,19 @@ class UserTest extends TestCase
 
         $user = User::where('id', $user->id)->first();
         $this->assertTrue($user->role === 'manager');
+    }
+
+    public function test_users_can_be_deleted(): void
+    {
+        $user = User::factory()->create(['username' => 'user1']);
+        $token = $this->createAdminToken();
+
+        $response = $this->deleteJSON("/users/{$user->id}", [], [
+            'Authorization' => "Bearer {$token}"
+        ]);
+
+        $response->assertNoContent();
+        $user = User::where('id', $user->id)->first();
+        $this->assertTrue($user === null);
     }
 }
