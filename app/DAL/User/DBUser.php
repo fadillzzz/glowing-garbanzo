@@ -21,4 +21,14 @@ class DBUser implements UserRepository
     {
         return User::create($user);
     }
+
+    public function update(string $id, array $user): void
+    {
+        User::where('id', $id)->update($user);
+    }
+
+    public function exists(string $id): bool
+    {
+        return User::where('id', $id)->count() === 1;
+    }
 }

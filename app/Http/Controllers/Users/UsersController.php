@@ -40,4 +40,19 @@ class UsersController extends Controller
 
         return response(['user' => $user], Response::HTTP_CREATED);
     }
+
+    public function update(Request $request, string $id): Response
+    {
+        $request->validate([
+            'role' => ['required', 'in:admin,manager,user'],
+        ]);
+
+        if (! $this->userService->exists($id)) {
+            return response(null, Response::HTTP_NOT_FOUND);
+        }
+
+        $this->userService->update($id, ['role' => $request->role]);
+
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
 }

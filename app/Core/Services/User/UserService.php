@@ -35,8 +35,18 @@ class UserService
         return $this->userRepo->create($user);
     }
 
+    public function update(string $id, array $user): void
+    {
+        $this->userRepo->update($id, $user);
+    }
+
     public function getAll(): array
     {
         return $this->userRepo->getAll();
+    }
+
+    public function exists(string $id): bool
+    {
+        return $this->userRepo->exists($id);
     }
 }

@@ -11,4 +11,8 @@ interface UserRepository
     public function getAll(): array;
 
     public function create(array $user): User;
+
+    public function update(string $id, array $user): void;
+
+    public function exists(string $id): bool;
 }

@@ -13,10 +13,10 @@ class UserTest extends TestCase
 
     public function test_users_can_be_retrieved(): void
     {
-        $admin = User::factory()->create(['username' => 'admin']);
         User::factory()->create(['username' => 'user1']);
         User::factory()->create(['username' => 'user2']);
-        $token = $admin->createToken('testing')->plainTextToken;
+
+        $token = $this->createAdminToken();
 
         $response = $this->get('/users', ['Authorization' => "Bearer {$token}"]);
 
@@ -34,14 +34,13 @@ class UserTest extends TestCase
 
     public function test_users_can_be_created(): void
     {
-        $admin = User::factory()->create(['username' => 'admin']);
-        $token = $admin->createToken('testing')->plainTextToken;
+        $token = $this->createAdminToken();
 
         $response = $this->postJSON('/users', [
             'username' => 'new_user',
             'password' => 'wawawawawa',
             'role' => 'manager',
-        ], ['Authorization' => "Bearer ${token}"]);
+        ], ['Authorization' => "Bearer {$token}"]);
 
         $response->assertCreated();
         $response
@@ -53,5 +52,20 @@ class UserTest extends TestCase
                          ->etc()
                 )
             );
+    }
+
+    public function test_users_can_be_updated(): void
+    {
+        $user = User::factory()->create(['username' => 'user1']);
+        $token = $this->createAdminToken();
+
+        $response = $this->putJSON("/users/{$user->id}", [
+            'role' => 'manager'
+        ], ['Authorization' => "Bearer {$token}"]);
+
+        $response->assertNoContent();
+
+        $user = User::where('id', $user->id)->first();
+        $this->assertTrue($user->role === 'manager');
     }
 }
