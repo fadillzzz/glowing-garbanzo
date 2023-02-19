@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Core\Interfaces\TokenRepository;
-use App\Core\Interfaces\UserRepository;
-use App\DAL\DBToken;
-use App\DAL\DBUser;
+use App\Core\Interfaces\Auth\TokenRepository;
+use App\Core\Interfaces\User\UserRepository;
+use App\DAL\Auth\DBToken;
+use App\DAL\User\DBUser;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Services;
+namespace App\Core\Services\Auth;
 
-use App\Core\Interfaces\TokenRepository;
+use App\Core\Interfaces\Auth\TokenRepository;
 use App\Models\User;
 
 class TokenService

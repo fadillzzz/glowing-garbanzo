@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Core\Services\TokenService;
-use App\Core\Services\UserService;
+use App\Core\Services\Auth\TokenService;
+use App\Core\Services\User\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;

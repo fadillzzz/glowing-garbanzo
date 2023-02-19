@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DAL;
+namespace App\DAL\Auth;
 
-use App\Core\Interfaces\TokenRepository;
+use App\Core\Interfaces\Auth\TokenRepository;
 use App\Models\User;
 use Laravel\Sanctum\PersonalAccessToken;
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Core\Services\TokenService;
+use App\Core\Services\Auth\TokenService;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

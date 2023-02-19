@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DAL;
+namespace App\DAL\User;
 
-use App\Core\Interfaces\UserRepository;
+use App\Core\Interfaces\User\UserRepository;
 use App\Models\User;
 
 class DBUser implements UserRepository

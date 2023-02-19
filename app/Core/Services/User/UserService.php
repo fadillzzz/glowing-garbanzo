@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Services;
+namespace App\Core\Services\User;
 
-use App\Core\Interfaces\UserRepository;
+use App\Core\Interfaces\User\UserRepository;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
