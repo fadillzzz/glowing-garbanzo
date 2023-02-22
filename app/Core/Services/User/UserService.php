@@ -37,6 +37,10 @@ class UserService
 
     public function update(string $id, array $user): void
     {
+        if (array_key_exists('password', $user) && ! empty($user['password'])) {
+            $user['password'] = Hash::make($user['password']);
+        }
+
         $this->userRepo->update($id, $user);
     }
 

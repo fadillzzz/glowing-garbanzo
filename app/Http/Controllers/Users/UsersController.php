@@ -45,14 +45,18 @@ class UsersController extends Controller
     public function update(Request $request, string $id): Response
     {
         $request->validate([
-            'role' => ['required', 'in:admin,manager,user'],
+            'password' => [Password::defaults()],
+            'role' => ['in:admin,manager,user'],
         ]);
 
         if (! $this->userService->exists($id)) {
             throw new ItemNotFoundException();
         }
 
-        $this->userService->update($id, ['role' => $request->role]);
+        $this->userService->update($id, array_filter([
+            'role' => $request->role,
+            'password' => $request->password,
+        ]));
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
