@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\HasUserPermission;
 use App\Http\Middleware\UserHasRole;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -63,5 +64,6 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'role' => UserHasRole::class,
+        'permission' => HasUserPermission::class,
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Core\Exceptions\Common\ItemNotFoundException;
 use App\Core\Services\User\UserService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -48,7 +49,7 @@ class UsersController extends Controller
         ]);
 
         if (! $this->userService->exists($id)) {
-            return response(null, Response::HTTP_NOT_FOUND);
+            throw new ItemNotFoundException();
         }
 
         $this->userService->update($id, ['role' => $request->role]);
@@ -59,7 +60,7 @@ class UsersController extends Controller
     public function destroy(Request $request, string $id): Response
     {
         if (! $this->userService->exists($id)) {
-            return response(null, Response::HTTP_NOT_FOUND);
+            throw new ItemNotFoundException();
         }
 
         $this->userService->delete($id);

@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserHasRole
+class HasUserPermission
 {
     private TokenService $tokenService;
 
@@ -21,7 +21,7 @@ class UserHasRole
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, ...$roles): Response
+    public function handle(Request $request, Closure $next, string $param): Response
     {
         $auth = $request->header('Authorization');
         $parts = explode(' ', $auth);
@@ -32,8 +32,11 @@ class UserHasRole
         }
 
         $user = $this->tokenService->getUser($token);
+        $id = (int) $request->$param;
 
-        if ($user !== null && in_array($user->role, $roles)) {
+        if ($user->role === 'admin' ||
+            $user->role === 'manager' ||
+            ($user->role === 'user' && $user->id === $id)) {
             return $next($request);
         }
 

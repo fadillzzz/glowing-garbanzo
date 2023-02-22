@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\TokensController;
+use App\Http\Controllers\Users\Posts\PostsController;
 use App\Http\Controllers\Users\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,10 @@ Route::middleware('role:admin')->group(function () {
     Route::patch('/users/{id}', [UsersController::class, 'update']);
     Route::delete('/users/{id}', [UsersController::class, 'destroy']);
 });
+
+Route::get('/users/{id}/posts', [PostsController::class, 'index']);
+
+Route::middleware(['role:admin,manager,user', 'permission:id'])->group(function () {
+    Route::post('/users/{id}/posts', [PostsController::class, 'store']);
+});
+

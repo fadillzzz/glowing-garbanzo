@@ -14,4 +14,11 @@ abstract class TestCase extends BaseTestCase
         $admin = User::factory()->create(['username' => 'admin']);
         return $admin->createToken('testing')->plainTextToken;
     }
+
+    protected function createUserWithToken(): User
+    {
+        $user = User::factory()->create(['username' => 'user1', 'role' => 'user']);
+        $user->withAccessToken($user->createToken('testing'));
+        return $user;
+    }
 }
