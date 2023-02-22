@@ -27,4 +27,14 @@ class PostService
     {
         return $this->postRepository->getAllByUserId($userId);
     }
+
+    public function update(int $postId, array $post): void
+    {
+        $this->postRepository->update($postId, $post);
+    }
+
+    public function exists(int $userId, int $postId): bool
+    {
+        return $this->postRepository->exists($userId, $postId);
+    }
 }

@@ -16,4 +16,16 @@ class DBPost implements PostRepository
     {
         return Post::where('user_id', $userId)->get()->toArray();
     }
+
+    public function update(int $postId, array $post): void
+    {
+        Post::where('id', $postId)->update($post);
+    }
+
+    public function exists(int $userId, int $postId): bool
+    {
+        return Post::where('user_id', $userId)
+            ->where('id', $postId)
+            ->count() === 1;
+    }
 }

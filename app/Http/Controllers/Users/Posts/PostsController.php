@@ -32,7 +32,7 @@ class PostsController extends Controller
     public function store(Request $request, string $userId): Response
     {
         $request->validate([
-            'title' => 'string|required',
+            'title' => 'string|max:255|required',
             'body' => 'string|required',
         ]);
 
@@ -46,9 +46,34 @@ class PostsController extends Controller
         return response(['post' => $post], Response::HTTP_CREATED);
     }
 
+    public function update(Request $request, string $userId, string $postId): Response
+    {
+        $request->validate([
+            'title' => 'string|max:255',
+            'body' => 'string',
+        ]);
+
+        $this->assertUserExists((int) $userId);
+        $this->assertPostExists((int) $userId, (int) $postId);
+
+        $this->postService->update((int) $postId, array_filter([
+            'title' => $request->title,
+            'body' => $request->body,
+        ]));
+
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
+
     private function assertUserExists(int $userId)
     {
         if (! $this->userService->exists($userId)) {
+            throw new ItemNotFoundException();
+        }
+    }
+
+    private function assertPostExists(int $userId, int $postId)
+    {
+        if (! $this->postService->exists($userId, $postId)) {
             throw new ItemNotFoundException();
         }
     }

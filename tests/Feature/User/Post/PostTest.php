@@ -49,4 +49,27 @@ class PostTest extends TestCase
             ],
         ]]);
     }
+
+    public function test_users_can_update_posts(): void
+    {
+        $user = $this->createUserWithToken();
+
+        $post = Post::create([
+            'title' => 'Test Post',
+            'body' => 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+            'user_id' => $user->id
+        ]);
+
+        $response = $this->patchJSON("/users/{$user->id}/posts/{$post->id}", [
+            'title' => 'New blog post',
+            'body' => 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBb'
+        ], ['Authorization' => "Bearer {$user->currentAccessToken()->plainTextToken}"]);
+
+        $response->assertNoContent();
+
+        $post = Post::find($post->id);
+
+        $this->assertTrue($post->title === 'New blog post');
+        $this->assertTrue($post->body === 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBb');
+    }
 }

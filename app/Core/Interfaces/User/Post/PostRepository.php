@@ -9,4 +9,8 @@ interface PostRepository
     public function create(array $post): Post;
 
     public function getAllByUserId(int $userId): array;
+
+    public function update(int $postId, array $post): void;
+
+    public function exists(int $userId, int $postId): bool;
 }
