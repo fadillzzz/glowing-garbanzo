@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users\Posts;
 
+use App\Core\Exceptions\Common\ItemNotFoundException;
 use App\Core\Services\User\Post\PostService;
 use App\Core\Services\User\UserService;
 use App\Http\Controllers\Controller;

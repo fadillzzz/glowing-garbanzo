@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Core\Exceptions\Common\ItemNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Throwable;
