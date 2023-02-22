@@ -31,5 +31,6 @@ Route::get('/users/{id}/posts', [PostsController::class, 'index']);
 Route::middleware(['role:admin,manager,user', 'permission:id'])->group(function () {
     Route::post('/users/{id}/posts', [PostsController::class, 'store']);
     Route::patch('/users/{id}/posts/{postId}', [PostsController::class, 'update']);
+    Route::delete('/users/{id}/posts/{postId}', [PostsController::class, 'destroy']);
 });
 

@@ -64,6 +64,16 @@ class PostsController extends Controller
         return response(null, Response::HTTP_NO_CONTENT);
     }
 
+    public function destroy(Request $request, string $userId, string $postId): Response
+    {
+        $this->assertUserExists((int) $userId);
+        $this->assertPostExists((int) $userId, (int) $postId);
+
+        $this->postService->delete((int) $postId);
+
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
+
     private function assertUserExists(int $userId)
     {
         if (! $this->userService->exists($userId)) {

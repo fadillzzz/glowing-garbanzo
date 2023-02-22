@@ -22,6 +22,11 @@ class DBPost implements PostRepository
         Post::where('id', $postId)->update($post);
     }
 
+    public function delete(int $postId): void
+    {
+        Post::where('id', $postId)->delete();
+    }
+
     public function exists(int $userId, int $postId): bool
     {
         return Post::where('user_id', $userId)

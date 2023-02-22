@@ -72,4 +72,24 @@ class PostTest extends TestCase
         $this->assertTrue($post->title === 'New blog post');
         $this->assertTrue($post->body === 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBb');
     }
+
+    public function test_users_can_delete_posts(): void
+    {
+        $user = $this->createUserWithToken();
+
+        $post = Post::create([
+            'title' => 'Test Post',
+            'body' => 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+            'user_id' => $user->id
+        ]);
+
+        $response = $this->deleteJSON("/users/{$user->id}/posts/{$post->id}", [], [
+            'Authorization' => "Bearer {$user->currentAccessToken()->plainTextToken}"
+        ]);
+
+        $response->assertNoContent();
+
+        $post = Post::find($post->id);
+        $this->assertTrue($post === null);
+    }
 }

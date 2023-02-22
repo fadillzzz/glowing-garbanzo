@@ -12,5 +12,7 @@ interface PostRepository
 
     public function update(int $postId, array $post): void;
 
+    public function delete(int $postId): void;
+
     public function exists(int $userId, int $postId): bool;
 }

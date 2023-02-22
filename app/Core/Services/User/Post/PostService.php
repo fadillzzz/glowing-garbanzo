@@ -33,6 +33,11 @@ class PostService
         $this->postRepository->update($postId, $post);
     }
 
+    public function delete(int $postId): void
+    {
+        $this->postRepository->delete($postId);
+    }
+
     public function exists(int $userId, int $postId): bool
     {
         return $this->postRepository->exists($userId, $postId);
