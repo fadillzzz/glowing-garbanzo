@@ -36,7 +36,8 @@ class UsersController extends Controller
 
         $user = $this->userService->create([
             'username' => $request->username,
-            'password' => $request->password
+            'password' => $request->password,
+            'role' => $request->role
         ]);
 
         return response(['user' => $user], Response::HTTP_CREATED);
